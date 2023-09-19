@@ -24,28 +24,118 @@ Or _italic_.
 Or... **_both!_**
 There's also [links](https://www.freecodecamp.com), and
 > Block Quotes!
-![React Logo w/ Text](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png)
+
+And if you want to get really crazy, even tables:
+
+Wild Header | Crazy Header | Another Header?
+------------ | ------------- | -------------
+Your content can | be here, and it | can be here....
+And here. | Okay. | I think we get it.
+
 - And of course there are lists.
   - Some are bulleted.
-      - With different indentation levels.
+     - With different indentation levels.
         - That look like this.
+
+
+1. And there are numbered lists too.
+1. Use just 1s if you want!
+1. And last but not least, let's not forget embedded images:
+
+![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
 `;
 
 function App() {
   const [markdownText, setMarkdownText] = useState(defaultMarkdown);
+  const [editorMaximized, setEditorMaximized] = useState(false);
+  const [previewMaximized, setPreviewMaximized] = useState(false);
+
+  const classes = editorMaximized
+? ['editorWrap maximized', 'previewWrap hide', 'fa fa-compress']
+: previewMaximized
+? ['editorWrap hide', 'previewWrap maximized', 'fa fa-compress']
+: ['editorWrap', 'previewWrap', 'fa fa-arrows-alt'];
+
+const handleChange = (e) => {
+  setMarkdownText(e.target.value);
+};
+
+const handleEditorMaximize = () => {
+  setEditorMaximized(!editorMaximized);
+};
+
+const handlePreviewMaximize = () => {
+  setPreviewMaximized(!previewMaximized);
+};
+
   return (
     <div className="App">
-      <h1 style={{textAlign: 'center'}}>Markdown Previewer</h1>
-      <textarea
+      <Header />
+      <div className={classes[0]}>
+         <Toolbar 
+            icon={classes[2]}
+            onClick={handleEditorMaximize}
+         text="Editor" />
+      {/* <textarea
           name="editor"
           id="editor"
           value={markdownText}
           onChange={(e) => setMarkdownText(e.target.value)}
-        ></textarea>
-        <div id='preview' dangerouslySetInnerHTML={{
+        ></textarea> */}
+        <Editor markdown={markdownText} onChange={handleChange} />
+        </div>
+        <div className='previewWrap'>
+        <Toolbar 
+         icon={classes[2]}
+         onClick={handlePreviewMaximize}
+        text="Previewer" />
+        {/* <div id='preview' dangerouslySetInnerHTML={{
       __html: marked(markdownText)
-    }}></div>
+    }}></div> */}
+        <Preview markdown={markdownText} />
     </div>
+    </div>
+  );
+}
+
+
+/*Toolbar variable */
+const Toolbar = (props) => {
+  return (
+  <div className='toolbar'>
+  <i className="fa-brands fa-free-code-camp" />
+  <h3>{props.text}</h3>
+  <i className={props.icon} onClick={props.onClick}/>
+  </div>
+  );
+}
+
+const Editor = (props) => {
+  return (
+    <textarea
+      id="editor"
+      onChange={props.onChange}
+      type="text"
+      value={props.markdown}
+    />
+  );
+};
+
+const Preview = (props) => {
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: marked(props.markdown)
+      }}
+      id="preview"
+    />
+  );
+};
+
+
+const Header = () => {
+  return (
+    <h1 style={{textAlign: 'center'}}>Markdown Previewer</h1>
   );
 }
 
