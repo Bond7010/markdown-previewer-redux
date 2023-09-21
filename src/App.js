@@ -52,6 +52,7 @@ function App() {
   // const [markdownText, setMarkdownText] = useState(defaultMarkdown);
   // const [editorMaximized, setEditorMaximized] = useState(false);
   // const [previewMaximized, setPreviewMaximized] = useState(false);
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
     // Dispatch the updateMarkdown action with the defaultMarkdown
     dispatch(updateMarkdown(defaultMarkdown));
