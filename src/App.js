@@ -56,16 +56,17 @@ function App() {
   //   // Dispatch the updateMarkdown action with the defaultMarkdown
   //   dispatch(updateMarkdown(defaultMarkdown));
   // }, []);
+  const dispatch = useDispatch();
   // eslint-disable-next-line react-hooks/exhaustive-deps
 useEffect(() => {
   // Dispatch the updateMarkdown action with the defaultMarkdown
   dispatch(updateMarkdown(defaultMarkdown));
-}, []);
+}, [dispatch, defaultMarkdown]);
 
   const markdownText = useSelector((state) => state.markdownConvert.markdownText); // Access markdownText from Redux
   const editorMaximized = useSelector((state) => state.editorPreview.editorMaximized);
   const previewMaximized = useSelector((state) => state.editorPreview.previewMaximized);
-  const dispatch = useDispatch();
+  
 
   const classes = editorMaximized
 ? ['editorWrap maximized', 'previewWrap hide', 'fa fa-compress']
