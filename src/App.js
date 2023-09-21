@@ -1,5 +1,6 @@
 import React from 'react';
-import {marked} from "https://esm.sh/marked";
+//import {marked} from "https://esm.sh/marked";
+import {marked} from "marked";
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleEditorMaximize, togglePreviewMaximize, updateMarkdown } from './actions';
