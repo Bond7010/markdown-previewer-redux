@@ -61,7 +61,7 @@ function App() {
 useEffect(() => {
   // Dispatch the updateMarkdown action with the defaultMarkdown
   dispatch(updateMarkdown(defaultMarkdown));
-}, [dispatch, defaultMarkdown]);
+}, [dispatch]);
 
   const markdownText = useSelector((state) => state.markdownConvert.markdownText); // Access markdownText from Redux
   const editorMaximized = useSelector((state) => state.editorPreview.editorMaximized);
