@@ -52,10 +52,16 @@ function App() {
   // const [markdownText, setMarkdownText] = useState(defaultMarkdown);
   // const [editorMaximized, setEditorMaximized] = useState(false);
   // const [previewMaximized, setPreviewMaximized] = useState(false);
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */useEffect(() => {
-    // Dispatch the updateMarkdown action with the defaultMarkdown
-    dispatch(updateMarkdown(defaultMarkdown));
-  }, []);
+  // /* eslint-disable-next-line react-hooks/exhaustive-deps */useEffect(() => {
+  //   // Dispatch the updateMarkdown action with the defaultMarkdown
+  //   dispatch(updateMarkdown(defaultMarkdown));
+  // }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(() => {
+  // Dispatch the updateMarkdown action with the defaultMarkdown
+  dispatch(updateMarkdown(defaultMarkdown));
+}, []);
+
   const markdownText = useSelector((state) => state.markdownConvert.markdownText); // Access markdownText from Redux
   const editorMaximized = useSelector((state) => state.editorPreview.editorMaximized);
   const previewMaximized = useSelector((state) => state.editorPreview.previewMaximized);
