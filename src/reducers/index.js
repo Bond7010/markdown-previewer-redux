@@ -1,10 +1,10 @@
-import counterReducer from './counter';
-import loggedReducer from './isLogged';
+import toggleWindow from './toggleWindow';
+import markdownConvert from './markdownConvert';
 import {combineReducers} from 'redux';
 
 const allReducers = combineReducers ( {
-    counter: counterReducer, 
-    isLogged: loggedReducer
+   editorPreview: toggleWindow, 
+   markdownConvert: markdownConvert
 }
 )
 

@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 //import { createStore } from 'redux';
 import { legacy_createStore as createStore } from 'redux';
 import allReducers from './reducers';
-//import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 //import ReactMarkdown from 'react-markdown';
 //import {marked} from "https://esm.sh/marked";
 //import {marked} from "marked";
@@ -17,9 +17,11 @@ const store = createStore(allReducers,
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <Provider store={store} > {/* Wrap your App component with Provider and pass the store */}
   <React.StrictMode> 
     <App /> 
   </React.StrictMode>
+  </Provider>,
 );
 
 // ReactDOM.render (

@@ -1,6 +1,8 @@
 import React from 'react';
 import {marked} from "https://esm.sh/marked";
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleEditorMaximize, togglePreviewMaximize, updateMarkdown } from './actions';
 
 marked.setOptions({
   breaks: true,
@@ -46,9 +48,17 @@ And here. | Okay. | I think we get it.
 `;
 
 function App() {
-  const [markdownText, setMarkdownText] = useState(defaultMarkdown);
-  const [editorMaximized, setEditorMaximized] = useState(false);
-  const [previewMaximized, setPreviewMaximized] = useState(false);
+  // const [markdownText, setMarkdownText] = useState(defaultMarkdown);
+  // const [editorMaximized, setEditorMaximized] = useState(false);
+  // const [previewMaximized, setPreviewMaximized] = useState(false);
+  useEffect(() => {
+    // Dispatch the updateMarkdown action with the defaultMarkdown
+    dispatch(updateMarkdown(defaultMarkdown));
+  }, []);
+  const markdownText = useSelector((state) => state.markdownConvert.markdownText); // Access markdownText from Redux
+  const editorMaximized = useSelector((state) => state.editorPreview.editorMaximized);
+  const previewMaximized = useSelector((state) => state.editorPreview.previewMaximized);
+  const dispatch = useDispatch();
 
   const classes = editorMaximized
 ? ['editorWrap maximized', 'previewWrap hide', 'fa fa-compress']
@@ -57,24 +67,31 @@ function App() {
 : ['editorWrap', 'previewWrap', 'fa fa-arrows-alt'];
 
 const handleChange = (e) => {
-  setMarkdownText(e.target.value);
+  //setMarkdownText(e.target.value);
+  dispatch(updateMarkdown(e.target.value)); // Dispatch the updateMarkdown action
 };
 
 const handleEditorMaximize = () => {
-  setEditorMaximized(!editorMaximized);
+  //setEditorMaximized(!editorMaximized);
+  dispatch(toggleEditorMaximize()); // Dispatch the toggleEditorMaximize action
 };
 
 const handlePreviewMaximize = () => {
-  setPreviewMaximized(!previewMaximized);
-};
+  // setPreviewMaximized(!previewMaximized);
+  dispatch(togglePreviewMaximize()); // Dispatch the togglePreviewMaximize action
+  };
+
 
   return (
     <div className="App">
       <Header />
       <div className={classes[0]}>
+      {/* <div className={editorMaximized ? 'editorWrap maximized' : 'editorWrap'}> */}
          <Toolbar 
             icon={classes[2]}
             onClick={handleEditorMaximize}
+          //   icon={editorMaximized ? 'fa fa-compress' : 'fa fa-arrows-alt'}
+          // onClick={() => dispatch(toggleEditorMaximize())}
          text="Editor" />
       {/* <textarea
           name="editor"
@@ -85,9 +102,12 @@ const handlePreviewMaximize = () => {
         <Editor markdown={markdownText} onChange={handleChange} />
         </div>
         <div className='previewWrap'>
+        {/* <div className={previewMaximized ? 'previewWrap maximized' : 'previewWrap'}> */}
         <Toolbar 
          icon={classes[2]}
          onClick={handlePreviewMaximize}
+        // icon={previewMaximized ? 'fa fa-compress' : 'fa fa-arrows-alt'}
+        //   onClick={() => dispatch(togglePreviewMaximize())}
         text="Previewer" />
         {/* <div id='preview' dangerouslySetInnerHTML={{
       __html: marked(markdownText)
